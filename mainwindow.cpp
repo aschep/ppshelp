@@ -8,9 +8,6 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-//    Content.insert("add","command add");
-//    Content.insert("del","command delete");
-//    Content.insert("insert","command insert");
     LoadFile_();
     FillCommandList_();
 }
@@ -38,20 +35,18 @@ void MainWindow::on_CommandList_itemClicked(QListWidgetItem *item)
 
 void MainWindow :: LoadFile_(void)
 {
-    QTextCodec *codec = QTextCodec::codecForName("UTF-8");
+    QTextCodec *codec = QTextCodec::codecForName("IBM 866");
     QFile file("cmd.txt");
     if( file.open(QIODevice::ReadOnly | QIODevice::Text) )
     {
         char line[1024];
         QString     cmd, desc;
         bool cmd_available = false;
-        //text = file.readLine();
         file.readLine(line,1024);
         setWindowTitle(codec->toUnicode(line));
         while( !file.atEnd() )
         {
             file.readLine(line,1024);
-            //text = file.readLine();
             if( line[0] == ':')
             {
                 if( cmd_available )
